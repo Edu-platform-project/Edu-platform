@@ -29,6 +29,7 @@
                             class="btn btn-outline-warning btn-sm me-3"
                             th:data-post-id="${questionBoard.questionId}"
                             th:data-user-id=0
+                            th:data-board-type="QUESTION_BOARD"
                             onclick="handleLikeButtonClick(this)">
                         👍 Like <span class="badge bg-warning like-count" th:text="${questionBoard.likeCount}"></span>
                     </button>
@@ -96,8 +97,8 @@
         function handleLikeButtonClick(button) {
             const postId = button.getAttribute("data-post-id");
             const userId = button.getAttribute("data-user-id");
+            const boardType = button.getAttribute("data-board-type"); // boardType 추가됨
 
-            // 서버로 POST 요청을 보냄
             fetch('/likes/add', {
                 method: 'POST',
                 headers: {
@@ -105,7 +106,10 @@
                 },
                 body: JSON.stringify({
                     postId: postId,
-                    userId: userId
+                    boardType: boardType, // 서버에 전달
+                    author: {
+                        stdId: userId
+                    }
                 })
             })
                 .then(response => {
@@ -116,9 +120,19 @@
                     }
                 })
                 .then(data => {
-                    // 현재 버튼 내의 span.like-count를 찾아 좋아요 수 업데이트
                     const likeCountElement = button.querySelector(".like-count");
                     likeCountElement.textContent = data.likeCount;
+
+                    // 버튼 상태 업데이트
+                    if (data.status === -1) {
+                        button.classList.remove("btn-outline-warning");
+                        button.classList.add("btn-outline-secondary");
+                        button.textContent = "👍 Like Removed";
+                    } else {
+                        button.classList.remove("btn-outline-secondary");
+                        button.classList.add("btn-outline-warning");
+                        button.textContent = "👍 Like Added";
+                    }
                 })
                 .catch(error => {
                     console.error("Error:", error);

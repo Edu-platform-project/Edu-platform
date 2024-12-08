@@ -9,11 +9,8 @@ import java.util.Optional;
 
 public interface LikeRepository extends JpaRepository<Like, Integer> {
     Like findFirstByUser(User user);
-    Integer countByPostIdAndBoardType(Integer postId, BoardType boardType);
 
     Like findByUserAndPostIdAndBoardType(User user, Integer postId, BoardType boardType);
-
-    boolean existsByUserAndPostId(User user, Integer postId);
 
     int countByPostId(Integer postId);
 }

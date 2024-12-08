@@ -33,31 +33,38 @@ public class LikeService {
         User user = userRepository.findById(likeDTO.getAuthor().getStdId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        Like existingLike = likeRepository.findByUserAndPostIdAndBoardType(
-                likeDTO.getAuthor(), likeDTO.getPostId(), likeDTO.getBoardType());
+        // 게시글 확인 (boardType에 따라 게시판 구분)
+        BoardType boardType = likeDTO.getBoardType();
+        Like existingLike = likeRepository.findByUserAndPostIdAndBoardType(user, likeDTO.getPostId(), boardType);
 
-        // 게시글 확인 (QuestionBoard 테이블에 대해)
-        QuestionBoard questionBoard = questionBoardRepository.findById(likeDTO.getPostId())
-                .orElseThrow(() -> new IllegalArgumentException("QuestionBoard not found"));
-
-        // 이미 좋아요를 눌렀는지 확인
-        if (likeRepository.existsByUserAndPostId(user, likeDTO.getPostId())) {
+        if (existingLike != null) {
+            // 좋아요 취소
             likeRepository.delete(existingLike);
-            return -1; // 좋아요 취소
+            // 좋아요 수 감소
+            if (boardType == BoardType.QUESTION_BOARD) {
+                QuestionBoard questionBoard = questionBoardRepository.findById(likeDTO.getPostId())
+                        .orElseThrow(() -> new IllegalArgumentException("QuestionBoard not found"));
+                questionBoard.setLikeCount(questionBoard.getLikeCount() - 1);
+                questionBoardRepository.save(questionBoard);
+            }
+            return -1; // 좋아요 취소됨
+        } else {
+            // 좋아요 추가
+            Like like = new Like();
+            like.setUser(user);
+            like.setPostId(likeDTO.getPostId());
+            like.setBoardType(boardType);
+            likeRepository.save(like);
+
+            // 좋아요 수 증가
+            if (boardType == BoardType.QUESTION_BOARD) {
+                QuestionBoard questionBoard = questionBoardRepository.findById(likeDTO.getPostId())
+                        .orElseThrow(() -> new IllegalArgumentException("QuestionBoard not found"));
+                questionBoard.setLikeCount(questionBoard.getLikeCount() + 1);
+                questionBoardRepository.save(questionBoard);
+            }
+            return 1; // 좋아요 추가됨
         }
-
-        // Like 객체 생성 및 저장
-        Like like = new Like();
-        like.setUser(user);
-        like.setPostId(likeDTO.getPostId());
-        like.setBoardType(BoardType.QUESTION_BOARD);
-        likeRepository.save(like);
-
-        // QuestionBoard의 likeCount 증가
-        questionBoard.setLikeCount(questionBoard.getLikeCount() + 1);
-        questionBoardRepository.save(questionBoard);
-
-        return 1;
     }
 
     public int getLikeCount(Integer postId) {
