@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import termproject.studyroom.domain.LectureList;
 import termproject.studyroom.domain.OldExam;
@@ -114,6 +115,11 @@ public class OldExamController {
         model.addAttribute("oldExam", oldExam);
         System.out.println(oldExam);
         return "oldExam/detail";
+    }
+
+    @PostMapping("/upload")
+    public String upload(@RequestParam("file") final MultipartFile file, final RedirectAttributes redirectAttributes) {
+        return "redirect:/oldExams";
     }
 
 }

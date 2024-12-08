@@ -18,8 +18,16 @@
                 <div th:replace="~{fragments/forms::inputRow(object='oldExam', field='content', required=true, type='textarea')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='oldExam', field='author', required=true, type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='oldExam', field='lectureId', required=true, type='select')}" />
-                <input type="submit" th:value="#{oldExam.add.headline}" class="btn btn-primary mt-4" />
             </form>
+            <!-- 파일 업로드 폼 -->
+            <form th:action="@{/oldExams/upload}" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="file" class="form-label">파일 선택</label>
+                    <input type="file" class="form-control" id="file" name="file" required>
+                </div>
+                <button type="submit" class="btn btn-warning">업로드</button>
+            </form>
+            <input type="submit" th:value="#{oldExam.add.headline}" class="btn btn-primary mt-4" />
         </div>
     </body>
 </html>
