@@ -16,7 +16,6 @@ import termproject.studyroom.domain.User;
 import termproject.studyroom.model.GroupBoardCommentDTO;
 import termproject.studyroom.repos.GroupBoardRepository;
 import termproject.studyroom.repos.UserRepository;
-import termproject.studyroom.service.GroupBoardCommentService;
 import termproject.studyroom.util.CustomCollectors;
 import termproject.studyroom.util.WebUtils;
 

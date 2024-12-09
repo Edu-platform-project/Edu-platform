@@ -28,10 +28,12 @@ CREATE OR REPLACE FUNCTION set_grade_based_on_stdId()
     RETURNS TRIGGER AS $$
 BEGIN
     -- stdId 값에 따라 grade를 설정
-    IF NEW.std_id = 111111111 THEN
+    IF NEW.std_id = 1111 THEN
         NEW.grade := 'PROF';
-    ELSIF NEW.std_id = 222222222 THEN
+    ELSIF NEW.std_id = 2222 THEN
         NEW.grade := 'TA';
+    ELSIF NEW.std_id = 3333 THEN
+        NEW.grade := 'LEAD';
     END IF;
 
     RETURN NEW;

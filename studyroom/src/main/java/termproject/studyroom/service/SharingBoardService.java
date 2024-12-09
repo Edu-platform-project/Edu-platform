@@ -12,7 +12,6 @@ import termproject.studyroom.model.SharingBoardDTO;
 import termproject.studyroom.repos.LectureListRepository;
 import termproject.studyroom.repos.SharingBoardRepository;
 import termproject.studyroom.repos.SharingCommentRepository;
-import termproject.studyroom.repos.SharingFileRepository;
 import termproject.studyroom.repos.UserRepository;
 import termproject.studyroom.util.NotFoundException;
 import termproject.studyroom.util.ReferencedWarning;

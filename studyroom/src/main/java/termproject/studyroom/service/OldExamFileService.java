@@ -4,9 +4,6 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import termproject.studyroom.domain.OldExam;
-import termproject.studyroom.domain.OldExamFile;
-import termproject.studyroom.model.OldExamFileDTO;
-import termproject.studyroom.repos.OldExamFileRepository;
 import termproject.studyroom.repos.OldExamRepository;
 import termproject.studyroom.util.NotFoundException;
 

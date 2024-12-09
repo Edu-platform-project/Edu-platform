@@ -4,10 +4,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import termproject.studyroom.domain.SharingBoard;
-import termproject.studyroom.domain.SharingFile;
-import termproject.studyroom.model.SharingFileDTO;
 import termproject.studyroom.repos.SharingBoardRepository;
-import termproject.studyroom.repos.SharingFileRepository;
 import termproject.studyroom.util.NotFoundException;
 
 

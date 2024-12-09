@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import termproject.studyroom.domain.SharingBoard;
-import termproject.studyroom.model.SharingFileDTO;
 import termproject.studyroom.repos.SharingBoardRepository;
 import termproject.studyroom.service.SharingFileService;
 import termproject.studyroom.util.CustomCollectors;

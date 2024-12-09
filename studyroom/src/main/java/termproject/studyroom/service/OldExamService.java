@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import termproject.studyroom.domain.*;
 import termproject.studyroom.model.OldExamDTO;
 import termproject.studyroom.repos.LectureListRepository;
-import termproject.studyroom.repos.OldExamFileRepository;
 import termproject.studyroom.repos.OldExamRepository;
 import termproject.studyroom.repos.UserRepository;
 import termproject.studyroom.util.NotFoundException;
